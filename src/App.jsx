@@ -12,7 +12,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen p-6 print:p-0 print:min-h-auto">
+    <div className="min-h-screen p-6 print:min-h-auto print:p-0">
       <Toaster
         position="bottom-center"
         visibleToasts={1}

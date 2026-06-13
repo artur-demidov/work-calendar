@@ -5,15 +5,15 @@ import { state, actions } from './store';
 import { dayValues } from './constants';
 
 export default function Legend() {
-  const { valueForFill, fillParams } = useSnapshot(state);
+  const { valueForFill, fillParams, showPreview } = useSnapshot(state);
 
   return (
-    <div className="flex gap-5 mb-4 print:hidden">
+    <div className="mb-4 flex gap-5 print:hidden">
       {Object.entries(dayValues).map(([value, { Icon, text }]) => (
         <div
           key={value}
           className={clsx(
-            'flex items-center gap-2 text-sm rounded-xl px-2 py-1 cursor-pointer',
+            'flex cursor-pointer items-center gap-2 rounded-xl px-2 py-1 text-sm',
             { 'bg-black/10': valueForFill === value },
           )}
           onClick={() => actions.setValueForFill(value)}
@@ -22,11 +22,11 @@ export default function Legend() {
           {text}
         </div>
       ))}
-      <div className="flex items-center gap-3 ml-10">
-        <label className="flex items-center gap-1 text-sm cursor-pointer">
+      <div className="ml-10 flex items-center gap-3">
+        <label className="flex cursor-pointer items-center gap-1 text-sm">
           <input
             type="checkbox"
-            className="cursor-pointer size-4"
+            className="size-4 cursor-pointer"
             checked={fillParams.enabled}
             onChange={() =>
               actions.setFillParams({
@@ -38,7 +38,7 @@ export default function Legend() {
           <span>Заполнить</span>
         </label>
         <input
-          className="h-8 px-3 border text-xs border-black"
+          className="h-8 border border-black px-3 text-xs"
           value={fillParams.workDays}
           onChange={(e) =>
             actions.setFillParams({
@@ -51,18 +51,27 @@ export default function Legend() {
           type="number"
         />
         <input
-          className="h-8 px-3 border text-xs border-black"
-          value={fillParams.dayOffDays}
+          className="h-8 border border-black px-3 text-xs"
+          value={fillParams.offDays}
           onChange={(e) =>
             actions.setFillParams({
               ...fillParams,
-              dayOffDays: e.target.valueAsNumber || 0,
+              offDays: e.target.valueAsNumber || 0,
             })
           }
           placeholder="Выходных дней"
           min="0"
           type="number"
         />
+        <label className="ml-10 flex cursor-pointer items-center gap-1 text-sm">
+          <input
+            type="checkbox"
+            className="size-4 cursor-pointer"
+            checked={showPreview}
+            onChange={actions.togglePreview}
+          />
+          <span>Показать лист</span>
+        </label>
       </div>
     </div>
   );

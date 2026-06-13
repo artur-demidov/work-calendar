@@ -9,7 +9,7 @@ const BodyCell = memo(function BodyCell({ id, dayKey, value, isBirthday }) {
 
   return (
     <div
-      className="flex flex-col items-center justify-center border-r-2 border-black text-center cursor-pointer"
+      className="flex cursor-pointer flex-col items-center justify-center border-r-2 border-black text-center"
       onClick={() => actions.setDay({ id, dayKey })}
     >
       {Icon && <Icon />}

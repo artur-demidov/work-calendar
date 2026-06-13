@@ -6,6 +6,7 @@ import { derived, state } from './store';
 const NumbersRow = memo(function NumbersRow() {
   const { currentDate } = useSnapshot(state);
   const { daysCount } = useSnapshot(derived);
+  const dayCells = Array.from({ length: daysCount }, (_, i) => i + 1);
 
   return (
     <div
@@ -14,13 +15,13 @@ const NumbersRow = memo(function NumbersRow() {
         gridTemplateColumns: `130px repeat(${daysCount}, minmax(0, 1fr)) 42px`,
       }}
     >
-      <div className="flex items-center px-2 border-r-2 border-black text-sm">
+      <div className="flex items-center border-r-2 border-black px-2 text-sm">
         Сотрудник
       </div>
-      {Array.from({ length: daysCount }, (_, i) => i + 1).map((day) => (
+      {dayCells.map((day) => (
         <div
           key={day}
-          className="flex flex-col items-center justify-center py-1.5 border-r-2 border-black text-center"
+          className="flex flex-col items-center justify-center border-r-2 border-black py-1.5 text-center"
         >
           <span className="text-sm font-semibold">{day}</span>
           <span className="text-sm uppercase">
@@ -28,7 +29,7 @@ const NumbersRow = memo(function NumbersRow() {
           </span>
         </div>
       ))}
-      <div className="flex items-center py-1.5 px-1 text-[10px] leading-3 font-semibold uppercase text-center">
+      <div className="flex items-center px-1 py-1.5 text-center text-[10px] leading-3 font-semibold uppercase">
         Дней
         <br />
         отраб.

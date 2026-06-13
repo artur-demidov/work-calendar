@@ -10,11 +10,12 @@ export const state = proxy({
   fillParams: {
     enabled: false,
     workDays: 0,
-    dayOffDays: 0,
+    offDays: 0,
   },
   rowsOrder: [],
   employeesData: {},
   daysData: {},
+  showPreview: false,
 });
 
 export const derived = computed({
@@ -95,7 +96,7 @@ export const actions = {
   },
   setDay({ id, dayKey }) {
     if (state.fillParams.enabled) {
-      if (!state.fillParams.workDays || !state.fillParams.dayOffDays) {
+      if (!state.fillParams.workDays || !state.fillParams.offDays) {
         return alert('Поля для заполнения пустые');
       }
       const daysCount = derived.daysCount;
@@ -109,7 +110,7 @@ export const actions = {
           delete state.daysData[id][key];
         }
         pos =
-          (pos + 1) % (state.fillParams.workDays + state.fillParams.dayOffDays);
+          (pos + 1) % (state.fillParams.workDays + state.fillParams.offDays);
       }
     } else if (state.daysData[id][dayKey] === state.valueForFill) {
       delete state.daysData[id][dayKey];
@@ -119,5 +120,8 @@ export const actions = {
   },
   setFillParams(fillParams) {
     state.fillParams = fillParams;
+  },
+  togglePreview() {
+    state.showPreview = !state.showPreview;
   },
 };

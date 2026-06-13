@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { ArrowDown, ArrowUp, SquarePen, Trash2 } from 'lucide-react';
 
 import { actions } from './store';
 
-export default function EmployeeCell({ id, employee }) {
+const EmployeeCell = memo(function EmployeeCell({ id, employee }) {
   function editEmployee() {
     const fullName = prompt('Введите ФИО', employee.fullName);
     if (!fullName) return;
@@ -16,7 +17,7 @@ export default function EmployeeCell({ id, employee }) {
   }
 
   return (
-    <div className="relative group flex items-center px-2 border-r-2 border-black">
+    <div className="group relative flex items-center border-r-2 border-black px-2">
       <div className="flex flex-col text-sm leading-4">
         {employee.fullName
           .trim()
@@ -25,27 +26,27 @@ export default function EmployeeCell({ id, employee }) {
             <span key={i}>{i}</span>
           ))}
       </div>
-      <div className="hidden group-hover:flex items-center justify-center gap-1 absolute inset-0 bg-white">
+      <div className="absolute inset-0 hidden items-center justify-center gap-1 bg-white group-hover:flex">
         <button
-          className="p-1 rounded-md hover:bg-black/10 cursor-pointer"
+          className="cursor-pointer rounded-md p-1 hover:bg-black/10"
           onClick={() => actions.moveEmployeeTop(id)}
         >
           <ArrowUp size="20" strokeWidth="1.5" />
         </button>
         <button
-          className="p-1 rounded-md hover:bg-black/10 cursor-pointer"
+          className="cursor-pointer rounded-md p-1 hover:bg-black/10"
           onClick={() => actions.moveEmployeeBottom(id)}
         >
           <ArrowDown size="20" strokeWidth="1.5" />
         </button>
         <button
-          className="p-1 rounded-md hover:bg-black/10 cursor-pointer"
+          className="cursor-pointer rounded-md p-1 hover:bg-black/10"
           onClick={editEmployee}
         >
           <SquarePen size="20" strokeWidth="1.5" />
         </button>
         <button
-          className="p-1 rounded-md hover:bg-black/10 cursor-pointer"
+          className="cursor-pointer rounded-md p-1 hover:bg-black/10"
           onClick={removeEmployee}
         >
           <Trash2 size="20" strokeWidth="1.5" />
@@ -53,4 +54,6 @@ export default function EmployeeCell({ id, employee }) {
       </div>
     </div>
   );
-}
+});
+
+export default EmployeeCell;

@@ -22,11 +22,11 @@ export default function PageHeader() {
   }
 
   return (
-    <div className="flex items-end justify-between mb-4 gap-4 print:hidden">
+    <div className="mb-4 flex items-end justify-between gap-4 print:hidden">
       <h1 className="font-semibold">Расписание рабочих дней</h1>
       <div className="flex items-center gap-2">
         <button
-          className="h-8 px-3 border text-xs flex items-center gap-2 border-black cursor-pointer"
+          className="flex h-8 cursor-pointer items-center gap-2 border border-black px-3 text-xs"
           onClick={actions.prevMonth}
         >
           <ChevronLeft size={14} />
@@ -35,19 +35,19 @@ export default function PageHeader() {
           {currentDate.format('MMMM YYYY')}
         </span>
         <button
-          className="h-8 px-3 border text-xs flex items-center gap-2 border-black cursor-pointer"
+          className="flex h-8 cursor-pointer items-center gap-2 border border-black px-3 text-xs"
           onClick={actions.nextMonth}
         >
           <ChevronRight size={14} />
         </button>
         <button
-          className="h-8 px-3 border text-xs flex items-center gap-2 border-black cursor-pointer"
+          className="flex h-8 cursor-pointer items-center gap-2 border border-black px-3 text-xs"
           onClick={addEmployee}
         >
           <UserPlus size={14} /> Сотрудник
         </button>
         <button
-          className="h-8 px-3 border text-xs flex items-center gap-2 border-black cursor-pointer"
+          className="flex h-8 cursor-pointer items-center gap-2 border border-black px-3 text-xs"
           onClick={() => {
             actions.saveToLocalStorage();
             toast('Данные сохранены');
@@ -56,7 +56,7 @@ export default function PageHeader() {
           <Save size={14} /> Сохранить
         </button>
         <button
-          className="h-8 px-3 border text-xs flex items-center gap-2 border-black cursor-pointer"
+          className="flex h-8 cursor-pointer items-center gap-2 border border-black px-3 text-xs"
           onClick={() => window.print()}
         >
           <Printer size={14} /> Печать

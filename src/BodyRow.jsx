@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useSnapshot } from 'valtio';
 import dayjs from 'dayjs';
 
@@ -15,20 +15,26 @@ const BodyRow = memo(function BodyRow({ id, employee, days }) {
       date.month() === currentDate.month() && date.year() === currentDate.year()
     );
   }).length;
+  const dayCells = useMemo(
+    () =>
+      Array.from({ length: daysCount }, (_, i) =>
+        currentDate.date(i + 1).format('DD-MM-YYYY'),
+      ),
+    [daysCount],
+  );
 
   return (
     <div
-      className="grid border-b-2 border-black h-13"
+      className="grid h-13 border-b-2 border-black"
       style={{
         gridTemplateColumns: `130px repeat(${daysCount}, minmax(0, 1fr)) 42px`,
       }}
     >
       <EmployeeCell id={id} employee={employee} />
-      {Array.from({ length: daysCount }, (_, i) => i + 1).map((day) => {
-        const dayKey = currentDate.date(day).format('DD-MM-YYYY');
+      {dayCells.map((dayKey) => {
         return (
           <BodyCell
-            key={day}
+            key={dayKey}
             id={id}
             dayKey={dayKey}
             value={days[dayKey]}

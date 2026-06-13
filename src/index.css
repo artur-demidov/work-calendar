@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant media_screen (@media screen);
+
 @theme {
   --font-inter: 'Inter', sans-serif;
 }
